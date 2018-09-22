@@ -1,0 +1,25 @@
+
+{
+    "jhipsterApp": {
+        "listaDeDesejos" : {
+            "home": {
+                "title": "Lista De Desejos",
+                "createLabel": "Create a new Lista De Desejos",
+                "createOrEditLabel": "Create or edit a Lista De Desejos"
+            },
+            "created": "A new Lista De Desejos is created with identifier {{ param }}",
+            "updated": "A Lista De Desejos is updated with identifier {{ param }}",
+            "deleted": "A Lista De Desejos is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Lista De Desejos {{ id }}?"
+            },
+            "detail": {
+                "title": "Lista De Desejos"
+            },
+            "title": "Title",
+            "restricted": "Restricted",
+            "produto": "Produto",
+            "cliente": "Cliente"
+        }
+    }
+}

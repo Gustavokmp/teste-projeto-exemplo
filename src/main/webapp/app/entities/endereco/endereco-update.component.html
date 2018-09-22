@@ -1,0 +1,106 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-endereco-heading" jhiTranslate="jhipsterApp.endereco.home.createOrEditLabel">Create or edit a Endereco</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!endereco.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="endereco.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.endereco.rua" for="field_rua">Rua</label>
+                    <input type="text" class="form-control" name="rua" id="field_rua"
+                        [(ngModel)]="endereco.rua" required maxlength="100"/>
+                    <div [hidden]="!(editForm.controls.rua?.dirty && editForm.controls.rua?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.rua?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.rua?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.endereco.numero" for="field_numero">Numero</label>
+                    <input type="number" class="form-control" name="numero" id="field_numero"
+                        [(ngModel)]="endereco.numero" required/>
+                    <div [hidden]="!(editForm.controls.numero?.dirty && editForm.controls.numero?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.numero?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.numero?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.endereco.cidade" for="field_cidade">Cidade</label>
+                    <input type="text" class="form-control" name="cidade" id="field_cidade"
+                        [(ngModel)]="endereco.cidade" required maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.cidade?.dirty && editForm.controls.cidade?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.cidade?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.cidade?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.endereco.estado" for="field_estado">Estado</label>
+                    <input type="text" class="form-control" name="estado" id="field_estado"
+                        [(ngModel)]="endereco.estado" required maxlength="2"/>
+                    <div [hidden]="!(editForm.controls.estado?.dirty && editForm.controls.estado?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.estado?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.estado?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 2 }">
+                        This field cannot be longer than 2 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.endereco.postcode" for="field_postcode">Postcode</label>
+                    <input type="text" class="form-control" name="postcode" id="field_postcode"
+                        [(ngModel)]="endereco.postcode" required maxlength="10"/>
+                    <div [hidden]="!(editForm.controls.postcode?.dirty && editForm.controls.postcode?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.postcode?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.postcode?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.endereco.cliente" for="field_cliente">Cliente</label>
+                    <select class="form-control" id="field_cliente" name="cliente" [(ngModel)]="endereco.cliente" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="clienteOption.id === endereco.cliente?.id ? endereco.cliente : clienteOption" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

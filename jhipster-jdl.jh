@@ -1,0 +1,59 @@
+entity Categoria {
+    descricao String required,
+    classificacao Integer,
+    status StatusDaCategoria
+}
+
+enum StatusDaCategoria {
+    DISPONIVEL, RESTRITO, DESATIVADO
+}
+entity Produto {
+    title String required maxlength(50),
+    palavraChave String,
+    descricao String maxlength(50),
+    avaliacao Integer required,
+}
+
+entity Cliente {
+	firstName String required maxlength(50),
+    lastName String required maxlength(50),
+    email String required maxlength(100),
+    telephone String
+}
+entity Endereco {
+    rua String required maxlength(100),
+    numero Integer required,
+    cidade String required maxlength(50),
+    estado String required maxlength(2)
+    postcode String required maxlength(10),
+    
+}
+entity ListaDeDesejos {
+	title String required,
+    restricted Boolean
+}
+
+paginate Cliente with pagination
+paginate Endereco with pager
+paginate Produto with pagination
+paginate Categoria with pagination
+service Categoria with serviceClass
+
+
+
+relationship OneToMany {
+    Cliente{endereco} to Endereco{cliente}
+}
+relationship OneToMany {
+    Cliente{listaDeDesejos(title)} to ListaDeDesejos{cliente}
+}
+
+relationship OneToMany {
+    ListaDeDesejos{produto(title)} to Produto{listaDeDesejos}
+}
+relationship ManyToOne {
+	Categoria{parent} to Categoria
+}
+relationship ManyToMany {
+	Categoria{produto(title)} to Produto{categoria}
+}

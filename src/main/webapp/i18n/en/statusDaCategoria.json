@@ -1,0 +1,10 @@
+{
+    "jhipsterApp": {
+        "StatusDaCategoria" : {
+            "null": "",
+            "DISPONIVEL": "DISPONIVEL",
+            "RESTRITO": "RESTRITO",
+            "DESATIVADO": "DESATIVADO"
+        }
+    }
+}

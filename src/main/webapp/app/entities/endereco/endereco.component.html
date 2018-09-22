@@ -1,0 +1,77 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="jhipsterApp.endereco.home.title">Enderecos</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-endereco" [routerLink]="['/endereco/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jhipsterApp.endereco.home.createLabel">
+            Create new Endereco
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="enderecos">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="rua"><span jhiTranslate="jhipsterApp.endereco.rua">Rua</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="numero"><span jhiTranslate="jhipsterApp.endereco.numero">Numero</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cidade"><span jhiTranslate="jhipsterApp.endereco.cidade">Cidade</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estado"><span jhiTranslate="jhipsterApp.endereco.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="postcode"><span jhiTranslate="jhipsterApp.endereco.postcode">Postcode</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cliente.id"><span jhiTranslate="jhipsterApp.endereco.cliente">Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let endereco of enderecos ;trackBy: trackId">
+                <td><a [routerLink]="['/endereco', endereco.id, 'view' ]">{{endereco.id}}</a></td>
+                <td>{{endereco.rua}}</td>
+                <td>{{endereco.numero}}</td>
+                <td>{{endereco.cidade}}</td>
+                <td>{{endereco.estado}}</td>
+                <td>{{endereco.postcode}}</td>
+                <td>
+                    <div *ngIf="endereco.cliente">
+                        <a [routerLink]="['../cliente', endereco.cliente?.id, 'view' ]" >{{endereco.cliente?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/endereco', endereco.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/endereco', endereco.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'endereco/'+ endereco.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Pager is not implemented yet, so this is normal pagination instead -->
+    <div *ngIf="enderecos && enderecos.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

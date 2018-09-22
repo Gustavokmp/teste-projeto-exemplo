@@ -1,0 +1,77 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-produto-heading" jhiTranslate="jhipsterApp.produto.home.createOrEditLabel">Create or edit a Produto</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!produto.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="produto.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.produto.title" for="field_title">Title</label>
+                    <input type="text" class="form-control" name="title" id="field_title"
+                        [(ngModel)]="produto.title" required maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.title?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.produto.palavraChave" for="field_palavraChave">Palavra Chave</label>
+                    <input type="text" class="form-control" name="palavraChave" id="field_palavraChave"
+                        [(ngModel)]="produto.palavraChave" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.produto.descricao" for="field_descricao">Descricao</label>
+                    <input type="text" class="form-control" name="descricao" id="field_descricao"
+                        [(ngModel)]="produto.descricao" maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.descricao?.dirty && editForm.controls.descricao?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.descricao?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.produto.avaliacao" for="field_avaliacao">Avaliacao</label>
+                    <input type="number" class="form-control" name="avaliacao" id="field_avaliacao"
+                        [(ngModel)]="produto.avaliacao" required/>
+                    <div [hidden]="!(editForm.controls.avaliacao?.dirty && editForm.controls.avaliacao?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.avaliacao?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.avaliacao?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterApp.produto.listaDeDesejos" for="field_listaDeDesejos">Lista De Desejos</label>
+                    <select class="form-control" id="field_listaDeDesejos" name="listaDeDesejos" [(ngModel)]="produto.listaDeDesejos" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="listaDeDesejosOption.id === produto.listaDeDesejos?.id ? produto.listaDeDesejos : listaDeDesejosOption" *ngFor="let listaDeDesejosOption of listadedesejos; trackBy: trackListaDeDesejosById">{{listaDeDesejosOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
